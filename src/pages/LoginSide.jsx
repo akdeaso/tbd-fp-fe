@@ -31,7 +31,16 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#2D3166",
+    },
+    secondary: {
+      main: "#A8ACE6",
+    },
+  },
+});
 
 function LoginSide() {
   const handleSubmit = (event) => {

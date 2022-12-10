@@ -6,11 +6,12 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import TesDaze from "./pages/tes";
 import LoginSide from "./pages/LoginSide";
 import RegisterSide from "./pages/RegisterSide";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <TesDaze />,
+    element: <Home />,
   },
   {
     path: "/sini",
