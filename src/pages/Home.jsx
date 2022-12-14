@@ -6,6 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import Navbar from "../components/Navbar";
 import { Container } from "@mui/system";
+import { Box, createTheme, Fab, ThemeProvider } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 
 const Home = () => {
   const itemData = [
@@ -70,9 +72,41 @@ const Home = () => {
       author: "@southside_customs",
     },
   ];
+
+  const { palette } = createTheme();
+  const { augmentColor } = palette;
+  const createColor = (mainColor) =>
+    augmentColor({ color: { main: mainColor } });
+  const theme = createTheme({
+    palette: {
+      purple: createColor("#2D3166"),
+      lightPurple: createColor("#A8ACE6"),
+    },
+  });
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Navbar />
+      <Box sx={{ "& > :not(style)": { m: 1 } }}>
+        <Fab
+          color="purple"
+          aria-label="add"
+          sx={{
+            margin: 0,
+            top: "auto",
+            right: 20,
+            bottom: 20,
+            left: "auto",
+            position: "fixed",
+          }}
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = "/add";
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      </Box>
       <Container fixed>
         <ImageList cols={3}>
           {itemData.map((item) => (
@@ -101,7 +135,7 @@ const Home = () => {
         </ImageList>
       </Container>
       ;
-    </>
+    </ThemeProvider>
   );
 };
 
