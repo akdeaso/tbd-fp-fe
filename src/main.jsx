@@ -7,6 +7,7 @@ import TesDaze from "./pages/tes";
 import LoginSide from "./pages/LoginSide";
 import RegisterSide from "./pages/RegisterSide";
 import Home from "./pages/Home";
+import AddNew from "./pages/AddNew";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterSide />,
+  },
+  {
+    path: "/add",
+    element: <AddNew />,
   },
 ]);
 
