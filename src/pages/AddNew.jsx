@@ -19,6 +19,7 @@ import Select from "@mui/material/Select";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import Footer from "../components/Footer";
 
 const AddNew = () => {
   const [category, setCategory] = useState("");
@@ -144,6 +145,7 @@ const AddNew = () => {
           </Box>
         </Grid>
       </Container>
+      <Footer width={"100%"} position={"fixed"} />
     </ThemeProvider>
   );
 };

@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import { Container } from "@mui/system";
 import { Box, createTheme, Fab, ThemeProvider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const itemData = [
@@ -135,6 +136,7 @@ const Home = () => {
         </ImageList>
       </Container>
       ;
+      <Footer />
     </ThemeProvider>
   );
 };
