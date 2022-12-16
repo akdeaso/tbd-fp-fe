@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -12,36 +12,64 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        TBD Project
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const theme = createTheme();
+import { BaseUrl } from "../helpers/apiAccessToken";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function RegisterSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const postRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const body = {
+        username: username,
+        email: email,
+        password: password,
+      };
+      const results = await axios.post(`${BaseUrl}/register`, body);
+      console.log(results);
+      if (results.status === 201 || results.status === 200) {
+        navigate("/login");
+      }
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+      }
+    }
   };
+
+  function Copyright(props) {
+    return (
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        align="center"
+        {...props}
+      >
+        {"Copyright © "}
+        <Link color="inherit" href="/">
+          TBD Project
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    );
+  }
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#2D3166",
+      },
+      secondary: {
+        main: "#A8ACE6",
+      },
+    },
+  });
 
   return (
     <ThemeProvider theme={theme}>
@@ -83,7 +111,7 @@ function RegisterSide() {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={postRegister}
               sx={{ mt: 1 }}
             >
               <TextField
@@ -94,6 +122,8 @@ function RegisterSide() {
                 label="Username"
                 name="username"
                 autoFocus
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -104,6 +134,8 @@ function RegisterSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -114,6 +146,8 @@ function RegisterSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

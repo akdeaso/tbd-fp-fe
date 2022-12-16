@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -9,8 +9,14 @@ import { Container } from "@mui/system";
 import { Box, createTheme, Fab, ThemeProvider } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Footer from "../components/Footer";
+import { BaseUrl } from "../helpers/apiAccessToken";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  const [allSetup, setAllSetup] = useState([]);
+  const token = localStorage.getItem("token");
+
   const itemData = [
     {
       img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-1.jpg",
@@ -74,6 +80,24 @@ const Home = () => {
     },
   ];
 
+  useEffect(() => {
+    getAllSetup();
+  }, []);
+
+  const getAllSetup = async () => {
+    try {
+      const results = await axios.get(`${BaseUrl}/all-setup`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setAllSetup(results.data.data);
+      console.log(results.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const { palette } = createTheme();
   const { augmentColor } = palette;
   const createColor = (mainColor) =>
@@ -110,33 +134,34 @@ const Home = () => {
       </Box>
       <Container fixed>
         <ImageList cols={3}>
-          {itemData.map((item) => (
-            <ImageListItem key={item.img}>
+          {allSetup.map((item, index) => (
+            <ImageListItem key={index}>
               <img
-                src={`${item.img}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
+                src={`${item.main_photo_url}?w=248&fit=crop&auto=format`}
+                srcSet={`${item.main_photo_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                alt={item.name_setup}
                 loading="lazy"
               />
-              <ImageListItemBar
-                title={item.title}
-                subtitle={item.author}
-                actionIcon={
-                  <IconButton
-                    sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                    aria-label={`info about ${item.title}`}
-                    href="#"
-                  >
-                    <InfoIcon />
-                  </IconButton>
-                }
-              />
+              <Link to={"/setup/" + item.id}>
+                <ImageListItemBar
+                  title={item.name_setup}
+                  subtitle={item.username}
+                  actionIcon={
+                    <IconButton
+                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                      aria-label={`info about ${item.name_setup}`}
+                    >
+                      <InfoIcon />
+                    </IconButton>
+                  }
+                />
+              </Link>
             </ImageListItem>
           ))}
         </ImageList>
       </Container>
       ;
-      <Footer />
+      <Footer width={"100%"} position={"fixed"} />
     </ThemeProvider>
   );
 };
