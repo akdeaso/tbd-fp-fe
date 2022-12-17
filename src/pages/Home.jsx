@@ -90,8 +90,8 @@ const Home = () => {
             {allSetup.map((item, index) => (
               <ImageListItem key={index}>
                 <img
-                  src={`${item.main_photo_url}?w=248&fit=crop&auto=format`}
-                  srcSet={`${item.main_photo_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  src={item.main_photo_url}
+                  srcSet={item.main_photo_url}
                   alt={item.name_setup}
                   loading="lazy"
                 />
