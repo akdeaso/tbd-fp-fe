@@ -11,78 +11,22 @@ import AddIcon from "@mui/icons-material/Add";
 import Footer from "../components/Footer";
 import { BaseUrl } from "../helpers/apiAccessToken";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [allSetup, setAllSetup] = useState([]);
   const token = localStorage.getItem("token");
-
-  const itemData = [
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-1.jpg",
-      title: "Breakfast",
-      author: "@bkristastucchio",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-2.jpg",
-      title: "Burger",
-      author: "@rollelflex_graphy726",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-3.jpg",
-      title: "Camera",
-      author: "@helloimnik",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-4.jpg",
-      title: "Coffee",
-      author: "@nolanissac",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-5.jpg",
-      title: "Hats",
-      author: "@hjrc33",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-6.jpg",
-      title: "Honey",
-      author: "@arwinneil",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-7.jpg",
-      title: "Basketball",
-      author: "@tjdragotta",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-8.jpg",
-      title: "Fern",
-      author: "@katie_wasserman",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/jake-charles-Jx-LOZfxcfQ-unsplash.jpg",
-      title: "Mushrooms",
-      author: "@silverdalex",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/andreas-dress-ZtD4DdClWGI-unsplash-1.jpg",
-      title: "Tomato basil",
-      author: "@shelleypauls",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-1.jpg",
-      title: "Sea star",
-      author: "@peterlaster",
-    },
-    {
-      img: "https://blog-cdn.everhour.com/blog/wp-content/uploads/2021/02/desk-setup-idea-2.jpg",
-      title: "Bike",
-      author: "@southside_customs",
-    },
-  ];
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getAllSetup();
+    getAllSetup(), checkToken();
   }, []);
+
+  const checkToken = () => {
+    if (!token) {
+      navigate("/login");
+    }
+  };
 
   const getAllSetup = async () => {
     try {
