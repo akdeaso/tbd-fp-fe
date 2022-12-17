@@ -6,11 +6,17 @@ Dalam aplikasi ini pengguna dapat melakukan beberapa aktivitas seperti mulai dar
 Dalam aplikasi yang digunakan juga menggunakan beberapa database, membuat Tech Stack, dan dokumentasi API nya.
 Kami juga membuat video penjelasan beserta demo dari aplikasi tersebut sesuai dengan link youtube yang sudah dikumpulkan melalui form.
 
-## Instalasi :
+## Instalasi:
 
 `npm install`
 
-> ### Aplikasi ini sedang tahap pengembangan. Masih banyak terdapat bebrapa bug dan kekurangan pada aplikasi.
+## Demo:
+
+```https
+  https://my-desktop-tbd.netlify.app/
+```
+
+> ### Aplikasi ini sedang tahap pengembangan. Masih banyak terdapat bebrapa bug dan kekurangan yang akan dikembangan.
 
 ## Tech Stack
 
@@ -52,7 +58,7 @@ API dibuat menggunakan framework Express.js dan dideploy menggunakan cyclic. Apl
 
 #### API Back-End
 
-```http
+```https
   https://tbd-fp-kelompok-3.cyclic.app/
 ```
 
@@ -79,3 +85,63 @@ API dibuat menggunakan framework Express.js dan dideploy menggunakan cyclic. Apl
 | `GET`    | `Untuk mendapatkan data atau informasi` |
 | `POST`   | `Membuat atau mengirimkan data baru`    |
 | `DELETE` | `Menghapus data`                        |
+
+## User Guide
+
+Cara penggunaan MyDesktop
+
+### Features
+
+#### Akses MyDesktop
+
+1. Buka browser, kemudian masukkan URL https://my-desktop-tbd.netlify.app/
+2. Halaman login akan muncul.
+
+![Halaman Login](https://drive.google.com/uc?export=view&id=1YUrPMUmMlp2MaPSen8JxBOeOCHipI7HO)
+
+#### Register dan Login
+
+1. Masukkan email dan password.
+2. Klik LOG IN.
+3. Setelah login, akan muncul halaman utama yang menampilkan katalog setup yang telah ditambahkan seluruh pengguna.
+   ![Halaman Katalog](https://drive.google.com/uc?export=view&id=1ZuhzX8WV3iLhO0d2NVx9FCeVhsAgTahV)
+
+#### Add New Setup
+
+1. Klik button '+' untuk menambahkan setup desktop baru.
+   ![Halaman Add New Setup](https://drive.google.com/uc?export=view&id=1XQ2uUU9XruXOdiuQbfW9icPw8Z12GwSO)
+
+2. Masukkan data setup desktop yang akan diunggah. Data setup desktop mencakup:
+
+• Kategori setup desktop, contohnya setup gaming, streaming, dan lain-lain.  
+• Tipe item, contohnya monitor, mouse, speaker, dan lain-lain.  
+• Merk  
+• Harga item
+
+Catatan: Pengguna bisa menambahkan jumlah jenis item dengan klik tombol ‘+’ di sebelah kanan baris field item.
+
+3. Untuk mengunggah gambar setup desktop, Klik CHOOSE > Pilih foto > UPLOAD.
+   Catatan: pengguna harus mengunggah 4 gambar, sehingga langkah ketiga diulangi sebanyak 4 kali.
+
+4. Setelah semua field telah terisi, klik POST
+
+#### Like
+
+1. Pilih unggahan setup desktop.
+   ![Halaman Detail](https://drive.google.com/uc?export=view&id=1zSk9fotWDZF18Su5mEmM7IBmNbi2t_aa)
+
+2. Klik LIKE
+
+#### Hide
+
+1. Pilih unggahan setup desktop.
+   ![Halaman Detail](https://drive.google.com/uc?export=view&id=13ZZ-LYFiGY_qcI1JItZocbFHDNjEhe1A)
+
+2. Klik HIDE
+
+#### Logout
+
+1. Klik ikon Profil di sudut kanan atas.
+   ![Log Out](https://drive.google.com/uc?export=view&id=1Mf1ZpXUgM_22x3bhYucRhf5uHvi7Zz_r)
+
+2. Pilih Logout.
