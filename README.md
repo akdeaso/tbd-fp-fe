@@ -10,7 +10,7 @@ Kami juga membuat video penjelasan beserta demo dari aplikasi tersebut sesuai de
 
 `npm install`
 
-> ### Aplikasi ini sedang tahap pengembangan. Masih banyak terdapat bebrapa bug dan kekurangan yang akan dikembangan.
+> ### Aplikasi ini sedang tahap pengembangan. Masih banyak terdapat bebrapa bug dan kekurangan pada aplikasi.
 
 ## Tech Stack
 
