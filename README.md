@@ -6,6 +6,12 @@ Dalam aplikasi ini pengguna dapat melakukan beberapa aktivitas seperti mulai dar
 Dalam aplikasi yang digunakan juga menggunakan beberapa database, membuat Tech Stack, dan dokumentasi API nya.
 Kami juga membuat video penjelasan beserta demo dari aplikasi tersebut sesuai dengan link youtube yang sudah dikumpulkan melalui form.
 
+## Instalasi :
+
+`npm install`
+
+> ### Aplikasi ini sedang tahap pengembangan. Masih banyak terdapat bebrapa bug dan kekurangan yang akan dikembangan.
+
 ## Tech Stack
 
 ### Front-End:
