@@ -89,12 +89,7 @@ const Home = () => {
           <ImageList cols={3}>
             {allSetup.map((item, index) => (
               <ImageListItem key={index}>
-                <img
-                  src={item.main_photo_url}
-                  srcSet={item.main_photo_url}
-                  alt={item.name_setup}
-                  loading="lazy"
-                />
+                <img src={item.main_photo_url} alt={item.name_setup} />
                 <Link to={"/setup/" + item.id}>
                   <ImageListItemBar
                     title={item.name_setup}
