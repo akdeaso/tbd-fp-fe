@@ -12,10 +12,12 @@ import Footer from "../components/Footer";
 import { BaseUrl } from "../helpers/apiAccessToken";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Home = () => {
   const [allSetup, setAllSetup] = useState([]);
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,12 +32,14 @@ const Home = () => {
 
   const getAllSetup = async () => {
     try {
+      setLoading(true);
       const results = await axios.get(`${BaseUrl}/all-setup`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       setAllSetup(results.data.data);
+      setLoading(false);
       console.log(results.data.data);
     } catch (error) {
       console.log(error);
@@ -76,35 +80,40 @@ const Home = () => {
           <AddIcon />
         </Fab>
       </Box>
-      <Container fixed>
-        <ImageList cols={3}>
-          {allSetup.map((item, index) => (
-            <ImageListItem key={index}>
-              <img
-                src={`${item.main_photo_url}?w=248&fit=crop&auto=format`}
-                srcSet={`${item.main_photo_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.name_setup}
-                loading="lazy"
-              />
-              <Link to={"/setup/" + item.id}>
-                <ImageListItemBar
-                  title={item.name_setup}
-                  subtitle={item.username}
-                  actionIcon={
-                    <IconButton
-                      sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                      aria-label={`info about ${item.name_setup}`}
-                    >
-                      <InfoIcon />
-                    </IconButton>
-                  }
+      {loading ? (
+        <Container sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
+          <CircularProgress size={50} sx={{ display: "flex" }} color="purple" />
+        </Container>
+      ) : (
+        <Container fixed>
+          <ImageList cols={3}>
+            {allSetup.map((item, index) => (
+              <ImageListItem key={index}>
+                <img
+                  src={`${item.main_photo_url}?w=248&fit=crop&auto=format`}
+                  srcSet={`${item.main_photo_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.name_setup}
+                  loading="lazy"
                 />
-              </Link>
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Container>
-      ;
+                <Link to={"/setup/" + item.id}>
+                  <ImageListItemBar
+                    title={item.name_setup}
+                    subtitle={item.username}
+                    actionIcon={
+                      <IconButton
+                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        aria-label={`info about ${item.name_setup}`}
+                      >
+                        <InfoIcon />
+                      </IconButton>
+                    }
+                  />
+                </Link>
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Container>
+      )}
       <Footer width={"100%"} position={"fixed"} />
     </ThemeProvider>
   );

@@ -21,6 +21,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import jwtDecode from "jwt-decode";
 import Alert from "@mui/material/Alert";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Detail = () => {
   const theme = useTheme();
@@ -30,6 +31,7 @@ const Detail = () => {
   const [liked, setLiked] = useState(false);
   const [totalLike, setTotalLike] = useState("");
   const [likeMsg, setLikeMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleNext = () => {
@@ -99,9 +101,11 @@ const Detail = () => {
 
   const getSetupById = async () => {
     try {
+      setLoading(true);
       const results = await axios.get(`${BaseUrl}/setup/${id}`);
       setSetupById(results.data.data.data);
       setRows(results.data.data.data.content_list_detail.inputFields, "rows");
+      setLoading(false);
       console.log(results.data.data.data);
     } catch (error) {
       console.log(error);
@@ -142,138 +146,144 @@ const Detail = () => {
           p: 4,
         }}
       >
-        <Box sx={{ flexGrow: 1, p: 3 }}>
-          <Grid container spacing={1}>
-            <Grid item xs={7}>
-              <Box sx={{ maxWidth: 600, flexGrow: 1 }}>
-                <AutoPlaySwipeableViews
-                  axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-                  index={activeStep}
-                  onChangeIndex={handleStepChange}
-                  enableMouseEvents
-                >
-                  {setupById.list_photo?.map((step, index) => (
-                    <div>
-                      {Math.abs(activeStep - index) <= 2 ? (
-                        <Box
-                          component="img"
-                          sx={{
-                            height: "100%",
-                            display: "block",
-                            // maxWidth: 400,
-                            overflow: "hidden",
-                            width: "100%",
-                          }}
-                          src={step}
-                          alt={step}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
-                </AutoPlaySwipeableViews>
-                <MobileStepper
-                  steps={maxSteps}
-                  position="static"
-                  activeStep={activeStep}
-                  nextButton={
-                    <Button
-                      sx={{ color: "#2D3166" }}
-                      size="small"
-                      onClick={handleNext}
-                      disabled={activeStep === maxSteps - 1}
-                    >
-                      Next
-                      {theme.direction === "rtl" ? (
-                        <KeyboardArrowLeft />
-                      ) : (
-                        <KeyboardArrowRight />
-                      )}
-                    </Button>
-                  }
-                  backButton={
-                    <Button
-                      sx={{ color: "#2D3166" }}
-                      size="small"
-                      onClick={handleBack}
-                      disabled={activeStep === 0}
-                    >
-                      {theme.direction === "rtl" ? (
-                        <KeyboardArrowRight />
-                      ) : (
-                        <KeyboardArrowLeft />
-                      )}
-                      Back
-                    </Button>
-                  }
-                />
-              </Box>
-              <Grid sx={{ justifyContent: "space-between", display: "flex" }}>
-                <Button
-                  sx={{
-                    backgroundColor: "#2D3166",
-                    "&:hover": {
-                      backgroundColor: "#2D3166",
-                      color: "white",
-                      display: "flex",
-                    },
-                  }}
-                  variant="contained"
-                  startIcon={<FavoriteBorderIcon />}
-                  onClick={handleLike}
-                >
-                  {totalLike} Like
-                </Button>
-                {setupById.user_id == idUser ? (
+        {loading ? (
+          <Container sx={{ display: "flex", justifyContent: "center", my: 5 }}>
+            <CircularProgress size={50} sx={{ display: "flex" }} />
+          </Container>
+        ) : (
+          <Box sx={{ flexGrow: 1, p: 3 }}>
+            <Grid container spacing={1}>
+              <Grid item xs={7}>
+                <Box sx={{ maxWidth: 600, flexGrow: 1 }}>
+                  <AutoPlaySwipeableViews
+                    axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+                    index={activeStep}
+                    onChangeIndex={handleStepChange}
+                    enableMouseEvents
+                  >
+                    {setupById.list_photo?.map((step, index) => (
+                      <div>
+                        {Math.abs(activeStep - index) <= 2 ? (
+                          <Box
+                            component="img"
+                            sx={{
+                              height: "100%",
+                              display: "block",
+                              // maxWidth: 400,
+                              overflow: "hidden",
+                              width: "100%",
+                            }}
+                            src={step}
+                            alt={step}
+                          />
+                        ) : null}
+                      </div>
+                    ))}
+                  </AutoPlaySwipeableViews>
+                  <MobileStepper
+                    steps={maxSteps}
+                    position="static"
+                    activeStep={activeStep}
+                    nextButton={
+                      <Button
+                        sx={{ color: "#2D3166" }}
+                        size="small"
+                        onClick={handleNext}
+                        disabled={activeStep === maxSteps - 1}
+                      >
+                        Next
+                        {theme.direction === "rtl" ? (
+                          <KeyboardArrowLeft />
+                        ) : (
+                          <KeyboardArrowRight />
+                        )}
+                      </Button>
+                    }
+                    backButton={
+                      <Button
+                        sx={{ color: "#2D3166" }}
+                        size="small"
+                        onClick={handleBack}
+                        disabled={activeStep === 0}
+                      >
+                        {theme.direction === "rtl" ? (
+                          <KeyboardArrowRight />
+                        ) : (
+                          <KeyboardArrowLeft />
+                        )}
+                        Back
+                      </Button>
+                    }
+                  />
+                </Box>
+                <Grid sx={{ justifyContent: "space-between", display: "flex" }}>
                   <Button
                     sx={{
                       backgroundColor: "#2D3166",
                       "&:hover": {
                         backgroundColor: "#2D3166",
                         color: "white",
+                        display: "flex",
                       },
-                      display: "flex",
                     }}
                     variant="contained"
-                    startIcon={<RemoveCircleOutlineIcon />}
-                    onClick={handleHide}
+                    startIcon={<FavoriteBorderIcon />}
+                    onClick={handleLike}
                   >
-                    Hide
+                    {totalLike} Like
                   </Button>
-                ) : (
-                  <></>
-                )}
+                  {setupById.user_id == idUser ? (
+                    <Button
+                      sx={{
+                        backgroundColor: "#2D3166",
+                        "&:hover": {
+                          backgroundColor: "#2D3166",
+                          color: "white",
+                        },
+                        display: "flex",
+                      }}
+                      variant="contained"
+                      startIcon={<RemoveCircleOutlineIcon />}
+                      onClick={handleHide}
+                    >
+                      Hide
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+                </Grid>
+                <Box sx={{ mt: 2 }}>
+                  {!likeMsg ? <></> : <Alert severity="info">{likeMsg}</Alert>}
+                </Box>
               </Grid>
-              <Box sx={{ mt: 2 }}>
-                {!likeMsg ? <></> : <Alert severity="info">{likeMsg}</Alert>}
-              </Box>
+              <Grid item xs={5}>
+                <Typography
+                  sx={{ color: "#2D3166" }}
+                  fontWeight="bold"
+                  fontSize={30}
+                >
+                  {capitalize(`${setupById.name_setup}`)}
+                </Typography>
+                <Typography
+                  // sx={{
+                  //   color: "#2D3166",
+                  // }}
+                  fontSize={20}
+                  align={"center"}
+                >
+                  by {setupById.username}
+                </Typography>
+                <Box sx={{ height: 300, width: "100%", mt: 2 }}>
+                  <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    getRowId={(row) => row.itemType + row.brand}
+                  />
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={5}>
-              <Typography
-                sx={{ color: "#2D3166" }}
-                fontWeight="bold"
-                fontSize={30}
-              >
-                {capitalize(`${setupById.name_setup}`)}
-              </Typography>
-              <Typography
-                // sx={{
-                //   color: "#2D3166",
-                // }}
-                fontSize={20}
-                align={"center"}
-              >
-                by {setupById.username}
-              </Typography>
-              <Box sx={{ height: 300, width: "100%", mt: 2 }}>
-                <DataGrid
-                  rows={rows}
-                  columns={columns}
-                  getRowId={(row) => row.itemType + row.brand}
-                />
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
+          </Box>
+        )}
       </Container>
     </>
   );
