@@ -1,6 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  BrowserRouter,
+  Routes,
+} from "react-router-dom";
 
 //import pages ny dibawahsini
 import TesDaze from "./pages/tes";
@@ -40,6 +46,15 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    {/* <RouterProvider router={router} /> */}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginSide />} />
+        <Route exact path="/signup" element={<RegisterSide />} />
+        <Route path="/add" element={<AddNew />} />
+        <Route path="/setup/:id" element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
